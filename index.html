@@ -1,27 +1,40 @@
-// Inicializar escena 3D
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(300, 300);
-document.getElementById('modelo3d').appendChild(renderer.domElement);
-
-// Agregar luz
-const light = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(light);
-
-// Cargar modelo GLTF (reemplaza 'anillo.gltf' con tu archivo)
-const loader = new THREE.GLTFLoader();
-loader.load('anillo.gltf', function(gltf) {
-    scene.add(gltf.scene);
-    camera.position.z = 5;
-    animate();
-}, undefined, function(error) {
-    console.error(error);
-});
-
-// Animación para rotar el modelo
-function animate() {
-    requestAnimationFrame(animate);
-    if (scene.children[1]) scene.children[1].rotation.y += 0.01; // Rota el modelo
-    renderer.render(scene, camera);
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tienda de Joyas 3D</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Tienda de Joyas en 3D</h1>
+        <nav>
+            <a href="#catalogo">Catálogo</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+    <section id="hero">
+        <h2>Bienvenido a nuestra colección</h2>
+        <div id="modelo3d"></div> <!-- Aquí se carga el 3D -->
+    </section>
+    <section id="catalogo">
+        <h2>Catálogo</h2>
+        <div class="joya">
+            <h3>Anillo de Oro</h3>
+            <div class="modelo-pequeno" data-modelo="anillo.gltf"></div>
+        </div>
+        <!-- Agrega más joyas -->
+    </section>
+    <section id="contacto">
+        <h2>Contáctanos</h2>
+        <form>
+            <input type="text" placeholder="Nombre">
+            <input type="email" placeholder="Email">
+            <textarea placeholder="Mensaje"></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
